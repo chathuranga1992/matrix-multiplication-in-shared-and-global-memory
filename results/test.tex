@@ -1,0 +1,99 @@
+\documentclass[12pt,oneside,a4paper]{article}
+\usepackage{filecontents,pgfplots,tikz,datetime}
+\font\mytitle=cmr12 at 32pt
+\title{\mytitle Matrix Multiplication Runtime Evaluation}
+\date{\textit{\today}}
+\author{\textbf {S.H.P.J.N Samarathunga CST140040}}
+
+\begin{document}
+
+\maketitle
+\pagenumbering{gobble}
+\newpage
+\tableofcontents
+\pagenumbering{gobble}
+\newpage
+\pagenumbering{arabic}
+
+\section{CPU Program runtime}
+
+	\par
+	This section matrix Multiplication algorithm use cpu only for its calculations $x,y$ are define for CPU time and Size of the matrix been processed.
+	\hfill \break
+\begin{figure}[!h]
+\pgfplotstableread{dcpu.dat}{\dcpu}
+\begin{tikzpicture}[scale=1]
+\begin{axis}[xlabel=Matrix,ylabel=Runtime(secs.),anchor=west]
+\addplot [x={matrix}, y={time},black,very thick] table {\dcpu};
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+\section{GPU Program runtime}
+
+	\par
+	This section matrix Multiplication algorithm use GPU for its calculations $x,y$ are define for CPU time and Size of the matrix been processed.
+	\hfill \break
+
+\subsubsection{Globale Memory}
+	\par
+	This section shows the results of Matrix Multiplication GPU algorithem performance when it only use Global memory.
+	\hfill \break
+
+
+\pgfplotstableread{dglobal.dat}{\dglobal}
+\begin{tikzpicture}[scale=1]
+\begin{axis}[xlabel=Matrix,ylabel=Runtime(secs.),anchor=west]
+\addplot [x={matrix}, y={time},black,very thick] table {\dglobal};
+\end{axis}
+\end{tikzpicture}
+
+
+\subsubsection{Shared Memory}
+	\par
+	This section shows the results of Matrix Multiplication GPU algorithem performance when it use Shared memory.
+	\hfill \break
+
+\pgfplotstableread{dshared.dat}{\dshared}
+\begin{tikzpicture}[scale=1]
+\begin{axis}[xlabel=Matrix,ylabel=Runtime(secs.),anchor=west]
+\addplot [x={matrix}, y={time},black,very thick] table {\dshared};
+\end{axis}
+\end{tikzpicture}
+
+\section{Comparision}
+	\par
+	You can see the best solution for our problem by comparing above three Graphs.
+	\hfill \break
+
+\begin{tikzpicture}[scale=1]
+\begin{axis}[xlabel=Matrix,ylabel=Runtime(secs.),anchor=west]
+\addplot [x={matrix}, y={time},red,very thick] table {\dglobal};
+\addplot [x={matrix}, y={time},blue,very thick] table {\dshared};
+\end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}[scale=1]
+\begin{axis}[xlabel=Matrix,ylabel=Runtime(secs.),anchor=west]
+\addplot [x={matrix}, y={time},red,very thick] table {\dcpu};
+\addplot [x={matrix}, y={time},red,very thick] table {\dglobal};
+\addplot [x={matrix}, y={time},blue,very thick] table {\dshared};
+\end{axis}
+\end{tikzpicture}
+
+\paragraph{Conclutions}
+
+	\par
+	Final conclusion.
+	\hfill \break
+
+\subparagraph{Subparagraph}
+
+Even more text.
+
+\section{Another section}
+
+\newpage
+
+
+\end{document}
